@@ -2,7 +2,7 @@
 
 **React + TypeScript interactive portfolio reconstruction**
 
-**[Live demo — GitHub Pages](https://dgutensohn03.github.io/LRS-Analytics/)** (available after successful deployment).
+**[Live demo — GitHub Pages](https://dgutensohn03.github.io/LRS-Analytics/)** · Deployment status: [GitHub Actions](https://github.com/dgutensohn03/LRS-Analytics/actions)
 
 A responsive, data-rich learning analytics application featuring reusable UI components, interactive charts, filtering, learner drill-downs and an xAPI-inspired statement explorer.
 
@@ -38,12 +38,12 @@ Repository: https://github.com/dgutensohn03/LRS-Analytics
 
 **Live URL:** https://dgutensohn03.github.io/LRS-Analytics/
 
-1. Ensure application source has been uploaded to the repository root (`index.html`, `package.json`, `src/`, `vite.config.ts`, etc.).
-2. In **Settings → Pages**, set deployment source to **GitHub Actions**.
-3. Push changes to `main` and check the **Actions** tab for the deploy workflow.
-4. Visit the live URL once the workflow finishes successfully.
+1. Source files are committed directly to `main` (`index.html`, `package.json`, `src/`, `vite.config.ts`).
+2. In **Settings → Pages**, select **GitHub Actions** as the deployment source.
+3. Every push to `main` triggers the deployment workflow, or use **Actions → Deploy LRS Analytics to GitHub Pages → Run workflow**.
+4. After a successful deployment, open the live URL above.
 
-**Visibility:** The repository was private during setup. Pages availability for private repositories depends on GitHub plan and configuration; a public recruiter demo may require making it public.
+**Visibility:** This public repository is intended to host a recruiter-accessible demonstration.
 
 ## Privacy
 
