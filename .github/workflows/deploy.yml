@@ -1,4 +1,4 @@
-name: Publish LRS Analytics
+name: Deploy LRS Analytics to GitHub Pages
 
 on:
   push:
@@ -6,53 +6,37 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
-  group: pages
+  group: github-pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout repository
+      - name: Check out source
         uses: actions/checkout@v4
-      - name: Restore complete application source
-        if: ${{ hashFiles('package.json') == '' }}
-        run: |
-          test -f source.tar.xz.base64
-          base64 --decode source.tar.xz.base64 > /tmp/lrs-source.tar.xz
-          tar -xJf /tmp/lrs-source.tar.xz -C .
-          rm source.tar.xz.base64
-      - name: Publish extracted source to repository
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "build: add complete LRS Analytics application source"
-            git push origin HEAD:main
-          fi
-      - name: Configure Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Build
+      - name: Build Vite app
         run: npm run build
-      - name: Configure Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Upload built site
+      - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
-      - name: Deploy to GitHub Pages
+          path: ./dist
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
